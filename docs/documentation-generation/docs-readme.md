@@ -44,7 +44,7 @@ Alternatively, the [docs task](../config/cli.md#stencil-docs) can be used to per
 stencil docs
 ```
 
-## Adding Custom Markdown to Auto-Generated Files
+## Adding Custom Markdown Content
 
 Once you've generated a `readme.md` file, you can add your own
 markdown content. Simply add your own markdown above the comment that reads:
@@ -52,10 +52,9 @@ markdown content. Simply add your own markdown above the comment that reads:
 
 The content that you generate before this comment will be persisted on subsequent builds of the README file.
 
-## Deprecation Notice
+## Adding a Deprecation Notice
 
-A Stencil component that has a JSDoc comment on its class component like so:
-
+A Stencil component that uses the [JSDoc `@deprecated` tag](https://jsdoc.app/tags-deprecated) in the component class' JSDoc like so:
 ```tsx title="my-component.tsx with @deprecated"
 /**
  * A simple component for formatting names.
@@ -77,9 +76,10 @@ The deprecation notice will always begin with `> **[DEPRECATED]**`, followed by 
 The deprecation notice will be placed after the `<!-- Auto Generated Below -->` comment in the README.
 If a component is not marked as deprecated, this section will be omitted from the generated README.
 
-## Overview
+## Adding Overview Documentation
 
-A Stencil component that uses the [JSDoc `@deprecated` tag]() in the component class' JSDoc like so:
+A Stencil component that has a JSDoc comment on its class component like so:
+
 ```tsx title="my-component.tsx with an overview"
 /**
  * A simple component for formatting names
@@ -105,7 +105,62 @@ This component will do some neat things!
 The overview will be placed after the [deprecation notice](#deprecation-notice) section of the README.
 If a component's JSDoc does not contain an overview, this section will be omitted from the generated README.
 
-## Custom Footer
+## Adding Usage Examples
+
+You can save usage examples for a component in the `usage/` subdirectory within a component's directory.
+The content of these files will be added to the `Usage` section of the generated README. 
+This allows you to keep examples right  next to the code, making it easy to include them in a documentation site or other downstream consumer(s) of your docs.
+
+:::caution
+Stencil doesn't check that your usage examples are up-to-date!
+If you make any changes to your component's API you'll need to remember to update your usage examples manually.
+:::
+
+If, for instance, you had a usage example like this:
+
+````md title="src/components/my-component/usage/my-component-usage.md"
+# How to Use `my-component`
+
+This component is used to provide a way to greet a user using their first, middle, and last name.
+
+This component will properly format the provided name, even when all fields aren't provided:
+
+```html
+<my-component first="Stencil"></my-component>
+<my-component first="Stencil" last="JS"></my-component>
+```
+````
+
+The following output will be added to the generated README:
+
+````md
+## Usage
+
+### My-component-usage
+
+# How to Use `my-component`
+
+This component is used to provide a way to greet a user using their first, middle, and last name.
+
+This component will properly format the provided name, even when all fields aren't provided:
+
+```html
+<my-component first="Stencil"></my-component>
+<my-component first="Stencil" last="JS"></my-component>
+```
+````
+
+The usage section will be placed after the [overview section](#adding-overview-documentation) of the README.
+If a component's directory does not contain any usage files, this section will be omitted from the generated README.
+
+## Adding Property Information
+
+TODO
+
+The properties section will be placed after the [usage examples section](#adding-usage-examples) of the README.
+If a component does not use `@Prop()`, this section will be omitted from the generated README.
+
+## Adding a Custom Footer
 
 Removing or customizing the footer can be done by adding a `footer` property to
 the output target. This string is added to the generated Markdown files without
