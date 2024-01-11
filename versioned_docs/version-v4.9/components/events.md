@@ -156,7 +156,7 @@ Please check out [https://developers.google.com/web/updates/2016/06/passive-even
 #### capture
 
 Event listener attached with `@Listen` does not "capture" by default.
-When a event listener is set to "capture", it means the event will be dispatched during the "capture phase".
+When an event listener is set to "capture", it means the event will be dispatched during the "capture phase".
 Check out [https://www.quirksmode.org/js/events_order.html](https://www.quirksmode.org/js/events_order.html) for further information.
 
 
